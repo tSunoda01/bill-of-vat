@@ -1,0 +1,5 @@
+{
+  "name": "Pyxis Billing System",
+  "description": "Multi-Tenant Business Billing & VAT Invoicing Platform compliant with Sri Lanka IRD Gazette No. 2481/22.",
+  "requestFramePermissions": []
+}

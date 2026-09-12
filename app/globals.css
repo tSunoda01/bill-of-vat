@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  
+  /* Light mode colors */
+  --color-primary: #1A73E8;
+  --color-secondary: #185ABC;
+  --color-accent: #34A853;
+  --color-text: #1F1F1F;
+  --color-sub: #6D6D6D;
+  --color-bg: #F5F7FA;
+  --color-card: #FFFFFF;
+  --color-border: #E2E8F0;
+}
+
+/* Dark mode colors */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #60A5FA;
+    --color-secondary: #3B82F6;
+    --color-accent: #4ADE80;
+    --color-text: #F3F4F6;
+    --color-sub: #9CA3AF;
+    --color-bg: #0F172A;
+    --color-card: #1E293B;
+    --color-border: #334155;
+  }
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F5F7FA;
+  color: #1F1F1F;
+}
+
+/* Apply dark mode by default via class */
+html.dark body {
+  background-color: #0F172A;
+  color: #FFFFFF;
+}
+
+/* Form input styles - white background with black text for visibility */
+@layer components {
+  .form-input {
+    @apply w-full border-2 border-gray-300 rounded-lg p-3 bg-white text-black text-sm font-medium transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 placeholder-gray-500;
+  }
+
+  .form-select {
+    @apply w-full border-2 border-gray-300 rounded-lg p-3 bg-white text-black text-sm font-medium transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200;
+  }
+
+  .form-textarea {
+    @apply w-full border-2 border-gray-300 rounded-lg p-3 bg-white text-black text-sm font-medium transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 placeholder-gray-500 resize-none;
+  }
+}
+
+/* Print specific styles - Optimized for A4 and Bill Printer */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  
+  html {
+    height: 297mm;
+    width: 210mm;
+  }
+  
+  /* body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    color: #1F1F1F;
+    height: 297mm;
+    width: 210mm;
+  } */
+
+    body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    width: 210mm;
+    height: 297mm;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+    /* Hide all UI elements marked with no-print */
+  .no-print, 
+  aside, 
+  header, 
+  button, 
+  input, 
+  textarea, 
+  select,
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  
+  /* .no-print {
+    display: none !important;
+  } */
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure invoice container fits A4 */
+  /* .max-w-\\[210mm\\] {
+    max-width: 210mm !important;
+    width: 210mm !important;
+    height: 297mm !important;
+  }
+   */
+
+     /* Ensure the invoice container fills the page exactly */
+  .invoice-container {
+    width: 210mm !important;
+    height: 297mm !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: static !important;
+    background: white;
+    box-shadow: none !important;
+    border: none !important;
+    overflow: hidden !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Ensure content doesn't overflow the A4 page */
+  .invoice-container > div {
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* Force background colors to print (Essential for the Blue headers) */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+}
+  /* Prevent orphaned content */
+  p, li, tr, h1, h2, h3, h4, h5, h6 {
+    page-break-inside: avoid;
+    orphans: 3;
+    widows: 3;
+  }
+  
+  table {
+    page-break-inside: avoid;
+  }
+  
+  thead {
+    display: table-header-group;
+  }
+  
+  tfoot {
+    display: table-footer-group;
+  }
